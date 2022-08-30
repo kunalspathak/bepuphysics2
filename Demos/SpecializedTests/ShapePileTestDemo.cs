@@ -22,7 +22,7 @@ namespace Demos.SpecializedTests
             camera.Yaw = MathHelper.Pi * 3f / 4;
             //camera.Pitch = MathHelper.PiOver2 * 0.999f;
             Simulation = Simulation.Create(BufferPool, new DemoNarrowPhaseCallbacks(new SpringSettings(30, 1)), new DemoPoseIntegratorCallbacks(new Vector3(0, -10, 0)), new SolveDescription(4, 1));
-            Simulation.Deterministic = true;
+            //Simulation.Deterministic = true;
 
             var sphere = new Sphere(1.5f);
             var capsule = new Capsule(1f, 1f);
@@ -85,9 +85,9 @@ namespace Demos.SpecializedTests
             var sphereIndex = Simulation.Shapes.Add(sphere);
             var cylinderIndex = Simulation.Shapes.Add(cylinder);
             var hullIndex = Simulation.Shapes.Add(convexHull);
-            const int width = 8;
+            const int width = 16;
             const int height = 16;
-            const int length = 8;
+            const int length = 16;
             var shapeCount = 0;
             for (int i = 0; i < width; ++i)
             {
@@ -96,27 +96,28 @@ namespace Demos.SpecializedTests
                     for (int k = 0; k < length; ++k)
                     {
                         var location = new Vector3(6, 3, 6) * new Vector3(i, j, k) + new Vector3(-width * 1.5f, 5.5f, -length * 1.5f);
-                        var bodyDescription = BodyDescription.CreateKinematic(location, new(default, ContinuousDetection.Passive), 0.01f);
+                        var bodyDescription = BodyDescription.CreateKinematic(location, new(default, ContinuousDetection.Passive), -0.01f);
                         var index = shapeCount++;
                         switch (index % 5)
                         {
-                            case 0:
-                                bodyDescription.Collidable.Shape = sphereIndex;
-                                bodyDescription.LocalInertia = sphereInertia;
-                                break;
-                            case 1:
-                                bodyDescription.Collidable.Shape = capsuleIndex;
-                                bodyDescription.LocalInertia = capsuleInertia;
-                                break;
-                            case 2:
-                                bodyDescription.Collidable.Shape = boxIndex;
-                                bodyDescription.LocalInertia = boxInertia;
-                                break;
-                            case 3:
-                                bodyDescription.Collidable.Shape = cylinderIndex;
-                                bodyDescription.LocalInertia = cylinderInertia;
-                                break;
-                            case 4:
+                            //case 0:
+                            //    bodyDescription.Collidable.Shape = sphereIndex;
+                            //    bodyDescription.LocalInertia = sphereInertia;
+                            //    break;
+                            //case 1:
+                            //    bodyDescription.Collidable.Shape = capsuleIndex;
+                            //    bodyDescription.LocalInertia = capsuleInertia;
+                            //    break;
+                            //case 2:
+                            //    bodyDescription.Collidable.Shape = boxIndex;
+                            //    bodyDescription.LocalInertia = boxInertia;
+                            //    break;
+                            //case 3:
+                            //    bodyDescription.Collidable.Shape = cylinderIndex;
+                            //    bodyDescription.LocalInertia = cylinderInertia;
+                            //    break;
+                            //case 4:
+                            default:
                                 bodyDescription.Collidable.Shape = hullIndex;
                                 bodyDescription.LocalInertia = hullInertia;
                                 break;
